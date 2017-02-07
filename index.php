@@ -11,8 +11,8 @@ $maxCountTriesConnectAndQuery = 3;  // You can adjust the various retry count va
 $secondsBetweenRetries = 4;  // Simple retry strategy.
 $errNo = 0;
 $serverName = "tcp:gaminggroup.database.windows.net,1433";
-$connectionOptions = array("Database"=>"Game",
-    "Uid"=>"salinasj14", "PWD"=>"Eastcarolina14", "LoginTimeout" => $connectionTimeoutSeconds);
+$connectionOptions = array("Database"=>"***",
+    "Uid"=>"***", "PWD"=>"***", "LoginTimeout" => $connectionTimeoutSeconds);
 $conn;
 $errorArr = array();
 $name = $_GET['name'];
