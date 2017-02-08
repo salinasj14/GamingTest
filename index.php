@@ -32,6 +32,7 @@ else
 }
 
 //creating the table
+echo $tableOperation;
 if($tableOperation == ['create'])
 {
     echo "you have called table operation create";
