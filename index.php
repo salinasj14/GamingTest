@@ -30,10 +30,11 @@ else
 {
     echo "connected to my DB";
     echo "<br>";
+    echo "$tableOperation";
 }
 
 //creating the table
-echo "$tableOperation";
+
 if($tableOperation == ['create'])
 {
     echo "you have called table operation and create";
