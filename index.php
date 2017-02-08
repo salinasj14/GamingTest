@@ -32,7 +32,7 @@ else
 }
 
 //creating the table
-if($tableOperation == 'create')
+if($tableOperation == ['create'])
 {
     echo "you have called table operation create";
     $createCmd = "CREATE TABLE [dbo].[leaderboards]
