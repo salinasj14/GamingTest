@@ -1,88 +1,136 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: josesalinas
+ * User: Ibook
  * Date: 2/6/17
- * Time: 9:35 AM
+ * Time: 6:09 PM
  */
-// Variables to tune the retry logic.
-$connectionTimeoutSeconds = 30;  // Default of 15 seconds is too short over the Internet, sometimes.
-$maxCountTriesConnectAndQuery = 3;  // You can adjust the various retry count values.
-$secondsBetweenRetries = 4;  // Simple retry strategy.
-$errNo = 0;
-$serverName = "tcp:gaminggroup.database.windows.net,1433";
-$connectionOptions = array("Database"=>"***",
-    "Uid"=>"***", "PWD"=>"***", "LoginTimeout" => $connectionTimeoutSeconds);
-$conn;
-$errorArr = array();
-$name = $_GET['name'];
-echo $name;
-for ($cc = 1; $cc <= $maxCountTriesConnectAndQuery; $cc++)
-{
-    $errorArr = array();
-    $ctr = 0;
-    // [A.2] Connect, which proceeds to issue a query command.
-    $conn = sqlsrv_connect($serverName, $connectionOptions);
-    if( $conn == true)
-    {
-        echo "Connection was established";
-        echo "<br>";
 
-        $tsql = "SELECT * FROM Scores";
-        $getProducts = sqlsrv_query($conn, $tsql);
-        if ($getProducts == FALSE)
-            die(FormatErrors(sqlsrv_errors()));
-        $productCount = 0;
-        $ctr = 0;
-        $counter = 0;
-        while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC )) {
-            print_r($row);
-        }
-        sqlsrv_free_stmt($getProducts);
-        break;
-    }
-    // Adds any the error codes from the SQL Exception to an array.
-    else {
-        if( ($errors = sqlsrv_errors() ) != null) {
-            foreach( $errors as $error ) {
-                $errorArr[$ctr] = $error['code'];
-                $ctr = $ctr + 1;
-            }
-        }
-        $isTransientError = TRUE;
-        // [A.4] Check whether sqlExc.Number is on the whitelist of transients.
-        $isTransientError = IsTransientStatic($errorArr);
-        if ($isTransientError == TRUE)  // Is a static persistent error...
-        {
-            echo("Persistent error suffered, SqlException.Number==". $errorArr[0].". Program Will terminate.");
-            echo "<br>";
-            // [A.5] Either the connection attempt or the query command attempt suffered a persistent SqlException.
-            // Break the loop, let the hopeless program end.
-            exit(0);
-        }
-        // [A.6] The SqlException identified a transient error from an attempt to issue a query command.
-        // So let this method reloop and try again. However, we recommend that the new query
-        // attempt should start at the beginning and establish a new connection.
-        if ($cc >= $maxCountTriesConnectAndQuery)
-        {
-            echo "Transient errors suffered in too many retries - " . $cc ." Program will terminate.";
-            echo "<br>";
-            exit(0);
-        }
-        echo("Transient error encountered.  SqlException.Number==". $errorArr[0]. " . Program might retry by itself.");
-        echo "<br>";
-        echo $cc . " Attempts so far. Might retry.";
-        echo "<br>";
-        // A very simple retry strategy, a brief pause before looping. This could be changed to exponential if you want.
-        sleep(1*$secondsBetweenRetries);
-    }
-    // [A.3] All has gone well, so let the program end.
+//Connection to DB
+$server = "tcp:gaminggroup.database.windows.net,1433";
+$connectionTimeoutSeconds = 30;
+$connectionOptions = array("Database"=>"Game", "Uid"=>"salinasj14", "PWD"=>"Eastcarolina14", "LoginTimeout" => $connectionTimeoutSeconds);
+//$connectionOptions = array("Database"=>"Game", "Uid"=>"koobi41e", "PWD"=>"Picollo1", "LoginTimeout" => $connectionTimeoutSeconds);
+$conn = sqlsrv_connect($server,$connectionOptions);
+
+//Strings to access from client side
+$name = $_GET['name'];
+$kills = $_GET['kills'];
+$deaths = $_GET['deaths'];
+$score = $_GET['score'];
+$team = $_GET['team'];
+$tableOperation = $_GET['operation'];
+
+//testing to see if DB is connected
+if($conn != true)
+{
+    echo "did not make a connection";
 }
-function IsTransientStatic($errorArr) {
-    $arrayOfTransientErrorNumber = array(4060, 10928, 10929, 40197, 40501, 40613);
-    $result = array_intersect($arrayOfTransientErrorNumber, $errorArr);
-    $count = count($result);
-    if($count >= 0) //change to > 0 later.
-        return TRUE;
+else
+{
+    echo "connected to my DB";
 }
-?>
+
+//creating the table
+if($tableOperation == "create")
+{
+    echo "you have called table operation (create)";
+    $createCmd = "CREATE TABLE [dbo].[leaderboards]
+    (
+	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+      [Name] VARCHAR(50) NOT NULL, 
+      [Kills] INT NOT NULL, 
+      [Deaths] INT NOT NULL, 
+      [Scores] INT NOT NULL, 
+      [Team] INT
+    )";
+    $create = sqlsrv_query($conn, $createCmd);
+    echo "you have finished calling table operation (create)";
+}
+
+
+//inserting values
+if($tableOperation == "makePlayer")
+{
+    echo "you have called table operation (makePlayer)";
+    //it should auto increment and have a null value for team.
+    $makeCmd = "INSERT into [dbo].[leaderboards] values ('$name',0,0,0,null)";
+    $makePlayer = sqlsrv_query($conn, $makeCmd);
+    echo "you have finished calling table operation (makePlayer) \n";
+    echo "name is $name";
+}
+
+//removing a player from the database
+//there is an error somewhere here. It wont go inside the if stmt
+echo "about to check delete player";
+if($tableOperation == "deletePlayer")
+{
+    echo "you have called table operation (deletePlayer)";
+    $deletePlayerCmd = "DELETE from [dbo].[leaderboards] where name = '$name'";
+    $deletePlayer = sqlsrv_query($conn, $deletePlayerCmd);
+    echo "you have finished calling table operation (deletePlayer) \n";
+}
+
+echo "about to check remove player";
+if($tableOperation == "removePlayer")
+{
+    echo "you have called table operation (removePlayer)";
+    $removeCmd = "DELETE from [dbo].[leaderboards] where name = '$name'";
+    $removePlayer = sqlsrv_query($conn,$removeCmd);
+    echo "you have finished calling  table operation (removePlayer)";
+}
+
+//update the kill in the table
+if($tableOperation == "updateKill")
+{
+    echo "you have called table operation (updateKill)";
+    $killCmd = "UPDATE [dbo].[leaderboards] set Kills = Kills+1 where Name = '$name'";
+    $updateKill = sqlsrv_query($conn,$killCmd);
+    echo "you have finished calling  table operation (updatingKill)";
+}
+
+//updating the death in the table
+if($tableOperation == "updateDeath")
+{
+    echo "you have called table operation (updateDeath)";
+    $deathCmd = "UPDATE [dbo].[leaderboards] set Deaths = Deaths+1 where Name = '$name'";
+    $updateDeath = sqlsrv_query($conn,$deathCmd);
+    echo "you have finished calling  table operation (updatingDeath)";
+}
+
+//incrementing the score
+if($tableOperation == "incScores")
+{
+    echo "you have called table operation (incScores)";
+    $incCmd = "UPDATE [dbo].[leaderboards] set Scores = Scores+1 where Name = '$name'";
+    $incScores = sqlsrv_query($conn,$incCmd);
+    echo "you have finished calling  table operation (incScores)";
+}
+
+//setting teams
+if($tableOperation == "setTeam")
+{
+    echo "you have called table operation (setTeam)";
+    echo "team is $team \n";
+    if($team == 1)
+    {
+        $set = "UPDATE [dbo].[leaderboards] set Team = 1 where Name = '$name'";
+    }
+    else if($team == 2)
+    {
+        echo "you entered in setTeam 2!!!";
+        $set = "UPDATE [dbo].[leaderboards] set Team = 2 where Name = '$name'";
+    }
+    $setTeam = sqlsrv_query($conn,$set);
+    echo "you have finished calling  table operation (setTeam)";
+}
+//delete table
+if($tableOperation == "deleteTable")
+{
+    echo "you have called table operation (delete)";
+    $deleteCmd = "Drop Table [dbo].[leaderboards]";
+    $delete = sqlsrv_query($conn,$deleteCmd);
+    echo "you have finished calling table operation (delete)";
+}
+
+
