@@ -32,8 +32,8 @@ else
 }
 
 //creating the table
-//if($tableOperation == 'create')
-//{
+if($tableOperation == 'create')
+{
     echo "you have called table operation (create)";
     $createCmd = "CREATE TABLE [dbo].[leaderboards]
     (
@@ -46,7 +46,7 @@ else
     )";
     $create = sqlsrv_query($conn, $createCmd);
     echo "you have finished calling table operation (create)";
-//}
+}
 
 
 //inserting values
