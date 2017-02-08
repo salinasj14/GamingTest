@@ -29,6 +29,7 @@ if($conn != true)
 else
 {
     echo "connected to my DB";
+    echo "<br>";
 }
 
 //creating the table
