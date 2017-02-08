@@ -30,7 +30,6 @@ else
 {
     echo "connected to my DB";
     echo "<br>";
-    echo "$tableOperation";
 }
 
 //creating the table
@@ -66,6 +65,7 @@ if($tableOperation == "makePlayer")
 //removing a player from the database
 //there is an error somewhere here. It wont go inside the if stmt
 echo "about to check delete player";
+echo "<br>";
 if($tableOperation == "deletePlayer")
 {
     echo "you have called table operation (deletePlayer)";
@@ -75,6 +75,7 @@ if($tableOperation == "deletePlayer")
 }
 
 echo "about to check remove player";
+echo "<br>";
 if($tableOperation == "removePlayer")
 {
     echo "you have called table operation (removePlayer)";
