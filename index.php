@@ -19,7 +19,7 @@ $kills = $_GET['kills'];
 $deaths = $_GET['deaths'];
 $score = $_GET['score'];
 $team = $_GET['team'];
-$tableOperation = $_GET['operation'];
+$tableOperation = $_GET['create'];
 
 //testing to see if DB is connected
 if($conn != true)
