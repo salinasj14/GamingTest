@@ -19,7 +19,7 @@ $kills = $_GET['kills'];
 $deaths = $_GET['deaths'];
 $score = $_GET['score'];
 $team = $_GET['team'];
-$tableOperation = $_GET["create"];
+$$tableOperation = $_GET['create'];
 
 //testing to see if DB is connected
 if($conn != true)
@@ -32,7 +32,7 @@ else
 }
 
 //creating the table
-if($tableOperation == "create")
+if($tableOperation == 'create')
 {
     echo "you have called table operation (create)";
     $createCmd = "CREATE TABLE [dbo].[leaderboards]
