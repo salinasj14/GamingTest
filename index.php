@@ -128,7 +128,7 @@ if($tableOperation == "setTeam")
     $setTeam = sqlsrv_query($conn,$set);
     echo "you have finished calling  table operation (setTeam)";
 }
-/*
+
 //delete table
 if($tableOperation == "deleteTable")
 {
@@ -137,6 +137,6 @@ if($tableOperation == "deleteTable")
     $delete = sqlsrv_query($conn,$deleteCmd);
     echo "you have finished calling table operation (delete)";
 }
-*/
+
 
 
