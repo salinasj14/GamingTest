@@ -119,15 +119,19 @@ if($tableOperation == "setTeam")
     echo "team is $team \n";
     if($team == 1)
     {
+        echo "you entered in setTeam 2!!!";
         $set = "UPDATE [dbo].[leaderboards] set Team = 1 where Name = '$name'";
+        echo "<br>";
     }
     else if($team == 2)
     {
         echo "you entered in setTeam 2!!!";
         $set = "UPDATE [dbo].[leaderboards] set Team = 2 where Name = '$name'";
+        echo "<br>";
     }
     $setTeam = sqlsrv_query($conn,$set);
     echo "you have finished calling  table operation (setTeam)";
+    echo "<br>";
 }
 
 //delete table
