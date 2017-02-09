@@ -48,7 +48,15 @@ else
     )";
     $create = sqlsrv_query($conn, $createCmd);
     echo "you have finished calling table operation (create)";
-echo sp_help[leaderboards];
+$query="SELECT * FROM leaderboards";
+$results = sqlsrv_query($query);
+while ($row = sqlsrv_fetch_array($results)) {
+    echo '<tr>';
+    foreach ($row as $field) {
+        echo '<td>' . htmlspecialchars($field) . '</td>';
+    }
+    echo '</tr>';
+}
 //}
 
 
