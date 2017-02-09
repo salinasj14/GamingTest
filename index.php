@@ -48,7 +48,20 @@ else
     )";
     $create = sqlsrv_query($conn, $createCmd);
     echo "you have finished calling table operation (create)";
-$tsql = "SELECT * FROM leaderboards";
+
+$stmt = "select name,kills,deaths,scores,team from [dbo].[leaderboards]";
+$result = sqlsrv_query($conn, $stmt);
+while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
+{
+    //print_r($row);
+    //echo"<br />";
+    //print "<tr>\n";
+    echo "<br>";
+    echo $row['Name'].", ".$row['Kills'].", ".$row['Deaths'].", ".$row['Scores'].", ".$row['Team']."<br />";
+    echo "<br>";
+}
+
+/*$tsql = "SELECT * FROM leaderboards";
 $getProducts = sqlsrv_query($conn, $tsql);
 if ($getProducts == FALSE)
 {
@@ -72,7 +85,7 @@ while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
 }
 //}
 
-
+*/
 //inserting values
 if($tableOperation == "makePlayer")
 {
