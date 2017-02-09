@@ -59,7 +59,7 @@ $ctr = 0;
 $counter = 0;
 while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
 {
-    print($row);
+    print ($row);
 }
 //}
 
