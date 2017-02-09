@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Ibook
+ * User: Jose Salinas
  * Date: 2/6/17
  * Time: 6:09 PM
  */
@@ -10,7 +10,6 @@
 $server = "tcp:gaminggroup.database.windows.net,1433";
 $connectionTimeoutSeconds = 30;
 $connectionOptions = array("Database"=>"Game", "Uid"=>"salinasj14", "PWD"=>"Eastcarolina14", "LoginTimeout" => $connectionTimeoutSeconds);
-//$connectionOptions = array("Database"=>"Game", "Uid"=>"koobi41e", "PWD"=>"Picollo1", "LoginTimeout" => $connectionTimeoutSeconds);
 $conn = sqlsrv_connect($server,$connectionOptions);
 
 //Strings to access from client side
