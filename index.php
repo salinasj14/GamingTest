@@ -50,7 +50,7 @@ else
     echo "you have finished calling table operation (create)";
 $query="SELECT * FROM leaderboards";
 $results = sqlsrv_query($query);
-while ($row = sqlsrv_fetch_array($results)) {
+while( $row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC )) {
     echo '<br>';
     foreach ($row as $field) {
         echo '<br>' . htmlspecialchars($field) . '</br>';
