@@ -48,14 +48,18 @@ else
     )";
     $create = sqlsrv_query($conn, $createCmd);
     echo "you have finished calling table operation (create)";
-$query="SELECT * FROM leaderboards";
-$results = sqlsrv_query($query);
-while( $row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC )) {
-    echo '<br>';
-    foreach ($row as $field) {
-        echo '<br>' . htmlspecialchars($field) . '</br>';
-    }
-    echo '</br>';
+$tsql = "SELECT * FROM leaderboards";
+$getProducts = sqlsrv_query($conn, $tsql);
+if ($getProducts == FALSE)
+{
+    die(FormatErrors(sqlsrv_errors()));
+}
+$productCount = 0;
+$ctr = 0;
+$counter = 0;
+while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
+{
+    print_r($row);
 }
 //}
 
