@@ -59,7 +59,7 @@ $ctr = 0;
 $counter = 0;
 
     echo "<br>";
-    echo "Id     Name    Kills      Deaths      Scores       Team ";
+    echo "Id Name Kills Deaths Scores Team ";
     "<br />";
     echo "<br>";
 
