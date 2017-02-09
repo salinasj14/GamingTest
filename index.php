@@ -67,7 +67,7 @@ while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
 {
     echo "<br>";
     echo $row['Id'].",   ".$row['Name'].",   ".$row['Kills'].",   "
-        .$row['Deaths'].", ".$row['Scores'].", ".$row['Team']."<br />";
+        .$row['Deaths'].",    ".$row['Scores'].",   ".$row['Team']."<br />";
     echo "<br>";
 }
 //}
