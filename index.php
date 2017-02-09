@@ -57,10 +57,8 @@ if ($getProducts == FALSE)
 $productCount = 0;
 $ctr = 0;
 $counter = 0;
-while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
-{
-    echo "Id". $row['Id'].", ".$row['Name']."<br />";
-    echo "<br>";
+while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_NUMERIC) ) {
+    echo $row[0].", ".$row[1]."<br />";
 }
 //}
 
