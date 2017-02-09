@@ -25,18 +25,18 @@ if($conn != true)
 {
     echo "did not make a connection";
 }
-else
-{
-    echo "connected to my DB";
-    echo "<br>";
-}
+//else
+//{
+  //  echo "connected to my DB";
+   // echo "<br>";
+//}
 
 //creating the table
 
 //if($tableOperation == 'create')
 //{
-    echo "you have called table operation and create";
-    echo "<br>";
+    //echo "you have called table operation and create";
+    //echo "<br>";
     $createCmd = "CREATE TABLE [dbo].[leaderboards]
     (
 	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
@@ -47,8 +47,10 @@ else
       [Team] INT
     )";
     $create = sqlsrv_query($conn, $createCmd);
-    echo "you have finished calling table operation (create)";
+   //echo "you have finished calling table operation (create)";
 //}
+
+// Koobi's code'
 /*
 $stmt = "select * from [dbo].[leaderboards]";
 $result = sqlsrv_query($conn, $stmt);
@@ -63,6 +65,7 @@ while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
 }
 */
 
+// My code
 /*
 $tsql = "SELECT * FROM leaderboards";
 $getProducts = sqlsrv_query($conn, $tsql);
@@ -88,6 +91,7 @@ while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
 }
 */
 
+// Code for Earl
 $tsql = "SELECT * FROM leaderboards";
 $getProducts = sqlsrv_query($conn, $tsql);
 if ($getProducts == FALSE)
