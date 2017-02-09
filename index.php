@@ -47,7 +47,7 @@ else
       [Team] INT
     )";
     $create = sqlsrv_query($conn, $createCmd);
-    echo "you have finished calling table operation (create)";
+    echo "you have finished calling table operation (creae)";
 sp_help[leaderboards];
 //}
 
