@@ -57,6 +57,11 @@ if ($getProducts == FALSE)
 $productCount = 0;
 $ctr = 0;
 $counter = 0;
+
+    echo "<br>";
+    echo "Id"."   ". "Name"."   "."Kills"."   "."Deaths". "   "."Scores"."   "."Team"."<br />";
+    echo "<br>";
+
 while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
 {
     echo "<br>";
