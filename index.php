@@ -48,7 +48,7 @@ else
     )";
     $create = sqlsrv_query($conn, $createCmd);
     echo "you have finished calling table operation (create)";
-sp_help[leaderboards];
+echo sp_help[leaderboards];
 //}
 
 
