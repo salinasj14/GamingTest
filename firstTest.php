@@ -23,7 +23,7 @@ for ($cc = 1; $cc <= $maxCountTriesConnectAndQuery; $cc++)
     $ctr = 0;
     // [A.2] Connect, which proceeds to issue a query command.
     $conn = sqlsrv_connect($serverName, $connectionOptions);
-    if( $conn == true)
+    if($conn == true)
     {
         echo "Connection was established";
         echo "<br>";
@@ -31,11 +31,14 @@ for ($cc = 1; $cc <= $maxCountTriesConnectAndQuery; $cc++)
         $tsql = "SELECT * FROM Scores";
         $getProducts = sqlsrv_query($conn, $tsql);
         if ($getProducts == FALSE)
+        {
             die(FormatErrors(sqlsrv_errors()));
+        }
         $productCount = 0;
         $ctr = 0;
         $counter = 0;
-        while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC )) {
+        while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
+        {
             print_r($row);
         }
         sqlsrv_free_stmt($getProducts);
@@ -43,8 +46,10 @@ for ($cc = 1; $cc <= $maxCountTriesConnectAndQuery; $cc++)
     }
     // Adds any the error codes from the SQL Exception to an array.
     else {
-        if( ($errors = sqlsrv_errors() ) != null) {
-            foreach( $errors as $error ) {
+        if( ($errors = sqlsrv_errors() ) != null)
+        {
+            foreach( $errors as $error )
+            {
                 $errorArr[$ctr] = $error['code'];
                 $ctr = $ctr + 1;
             }
