@@ -33,8 +33,8 @@ else
 
 //creating the table
 
-if($tableOperation == 'create')
-{
+//if($tableOperation == 'create')
+//{
     echo "you have called table operation and create";
     echo "<br>";
     $createCmd = "CREATE TABLE [dbo].[leaderboards]
@@ -48,7 +48,8 @@ if($tableOperation == 'create')
     )";
     $create = sqlsrv_query($conn, $createCmd);
     echo "you have finished calling table operation (create)";
-}
+sp_help[leaderboards];
+//}
 
 
 //inserting values
@@ -63,25 +64,15 @@ if($tableOperation == "makePlayer")
 }
 
 //removing a player from the database
-//there is an error somewhere here. It wont go inside the if stmt
-echo "about to check delete player";
-echo "<br>";
+
 if($tableOperation == "deletePlayer")
 {
+    echo "about to check delete player";
+    echo "<br>";
     echo "you have called table operation (deletePlayer)";
     $deletePlayerCmd = "DELETE from [dbo].[leaderboards] where name = '$name'";
     $deletePlayer = sqlsrv_query($conn, $deletePlayerCmd);
     echo "you have finished calling table operation (deletePlayer) \n";
-}
-
-echo "about to check remove player";
-echo "<br>";
-if($tableOperation == "removePlayer")
-{
-    echo "you have called table operation (removePlayer)";
-    $removeCmd = "DELETE from [dbo].[leaderboards] where name = '$name'";
-    $removePlayer = sqlsrv_query($conn,$removeCmd);
-    echo "you have finished calling  table operation (removePlayer)";
 }
 
 //update the kill in the table
