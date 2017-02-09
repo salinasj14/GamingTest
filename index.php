@@ -63,7 +63,7 @@ while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
 }
 */
 
-
+/*
 $tsql = "SELECT * FROM leaderboards";
 $getProducts = sqlsrv_query($conn, $tsql);
 if ($getProducts == FALSE)
@@ -86,6 +86,23 @@ while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
         .$row['Deaths'].",    ".$row['Scores'].",".$row['Team']."."."<br />";
     echo "<br>";
 }
+*/
+
+$tsql = "SELECT * FROM leaderboards";
+$getProducts = sqlsrv_query($conn, $tsql);
+if ($getProducts == FALSE)
+{
+    die(FormatErrors(sqlsrv_errors()));
+}
+$productCount = 0;
+$ctr = 0;
+$counter = 0;
+while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
+{
+    print_r($row);
+}
+sqlsrv_free_stmt($getProducts);
+
 
 //inserting values
 if($tableOperation == "makePlayer")
