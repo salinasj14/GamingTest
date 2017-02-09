@@ -57,11 +57,9 @@ if ($getProducts == FALSE)
 $productCount = 0;
 $ctr = 0;
 $counter = 0;
-while( $row = odbc_result( $getProducts, SQLSRV_FETCH_ASSOC ))
+while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
 {
-    print odbc_result($row, "LastName") . ", " .
-        odbc_result($row, "FirstName") .
-        "<br />\n";
+    print ($row);
 }
 //}
 
