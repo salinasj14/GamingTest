@@ -51,11 +51,11 @@ else
 $query="SELECT * FROM leaderboards";
 $results = sqlsrv_query($query);
 while ($row = sqlsrv_fetch_array($results)) {
-    echo '<tr>';
+    echo '<br>';
     foreach ($row as $field) {
-        echo '<td>' . htmlspecialchars($field) . '</td>';
+        echo '<br>' . htmlspecialchars($field) . '</br>';
     }
-    echo '</tr>';
+    echo '</br>';
 }
 //}
 
