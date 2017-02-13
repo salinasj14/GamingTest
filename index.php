@@ -44,13 +44,13 @@ if($conn != true)
       [Kills] INT NOT NULL, 
       [Deaths] INT NOT NULL, 
       [Scores] INT NOT NULL, 
-      [Team] INT
+      [Team] INT NOT NULL
     )";
     $create = sqlsrv_query($conn, $createCmd);
    //echo "you have finished calling table operation (create)";
 //}
 
-// Koobi's code'
+// Koobi's code
 /*
 $stmt = "select * from [dbo].[leaderboards]";
 $result = sqlsrv_query($conn, $stmt);
@@ -88,31 +88,12 @@ while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
         ."Deaths"."=".$row['Deaths']."|"."Scores"."=".$row['Scores']."|"."Team". "=".$row['Team'].";";
 }
 
-
-/*
-// Code for Earl
-$tsql = "SELECT * FROM leaderboards";
-$getProducts = sqlsrv_query($conn, $tsql);
-if ($getProducts == FALSE)
-{
-    die(FormatErrors(sqlsrv_errors()));
-}
-$productCount = 0;
-$ctr = 0;
-$counter = 0;
-while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
-{
-    print_r($row);
-}
-sqlsrv_free_stmt($getProducts);
-*/
-
 //inserting values
 if($tableOperation == "makePlayer")
 {
     echo "you have called table operation (makePlayer)";
     //it should auto increment and have a null value for team.
-    $makeCmd = "INSERT into [dbo].[leaderboards] values ('$name',0,0,0,null)";
+    $makeCmd = "INSERT into [dbo].[leaderboards] values ('$name',0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
     echo "you have finished calling table operation (makePlayer) \n";
     echo "name is $name";
