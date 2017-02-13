@@ -50,21 +50,6 @@ if($tableOperation == 'create')
    echo "you have finished calling table operation (create)";
 }
 
-// Koobi's code
-/*
-$stmt = "select * from [dbo].[leaderboards]";
-$result = sqlsrv_query($conn, $stmt);
-while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-{
-    //print_r($row);
-    //echo"<br />";
-    //print "<tr>\n";
-    echo "<br>";
-    echo $row['Name'].", ".$row['Kills'].", ".$row['Deaths'].", ".$row['Scores'].", ".$row['Team']."<br />";
-    echo "<br>";
-}
-*/
-
 // My code
 if($tableOperation == "getData")
 {
@@ -73,9 +58,6 @@ if($tableOperation == "getData")
     if ($getProducts == FALSE) {
         die(FormatErrors(sqlsrv_errors()));
     }
-    $productCount = 0;
-    $ctr = 0;
-    $counter = 0;
 
     while ($row = sqlsrv_fetch_array($getProducts, SQLSRV_FETCH_ASSOC)) {
         echo $row['Name'] . "|" . $row['Kills'] . "|"
