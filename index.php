@@ -33,10 +33,10 @@ if($conn != true)
 
 //creating the table
 
-//if($tableOperation == 'create')
-//{
-    //echo "you have called table operation and create";
-    //echo "<br>";
+if($tableOperation == 'create')
+{
+    echo "you have called table operation and create";
+    echo "<br>";
     $createCmd = "CREATE TABLE [dbo].[leaderboards]
     (
 	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
@@ -47,8 +47,8 @@ if($conn != true)
       [Team] INT NOT NULL
     )";
     $create = sqlsrv_query($conn, $createCmd);
-   //echo "you have finished calling table operation (create)";
-//}
+   echo "you have finished calling table operation (create)";
+}
 
 // Koobi's code
 /*
