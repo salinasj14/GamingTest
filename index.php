@@ -55,18 +55,6 @@ while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
     echo "<br>";
 }
 */
-// My code
-$tsql = "SELECT * FROM leaderboards";
-$getProducts = sqlsrv_query($conn, $tsql);
-if ($getProducts == FALSE)
-{
-    die(FormatErrors(sqlsrv_errors()));
-}
-
-while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
-{
-    echo $row['Name']."|".$row['Kills']."|".$row['Deaths']."|".$row['Scores']."|".$row['Team'].";";
-}
 
 //inserting values
 if($tableOperation == "makePlayer")
@@ -76,6 +64,21 @@ if($tableOperation == "makePlayer")
     $makePlayer = sqlsrv_query($conn, $makeCmd);
 }
 //removing a player from the database
+if($tableOperation == "showData")
+{
+    // My code
+    $tsql = "SELECT * FROM leaderboards";
+    $getProducts = sqlsrv_query($conn, $tsql);
+    if ($getProducts == FALSE)
+    {
+        die(FormatErrors(sqlsrv_errors()));
+    }
+
+    while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
+    {
+        echo $row['Name']."|".$row['Kills']."|".$row['Deaths']."|".$row['Scores']."|".$row['Team'].";";
+    }
+}
 if($tableOperation == "deletePlayer")
 {
     echo "about to check delete player";
