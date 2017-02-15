@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Koobi, Jose Salinas, Earl
+ * User: Koobi Eyota, Jose Salinas, Earl Blizzard
  * Date: 2/6/17
  * Time: 6:09 PM
  */
@@ -41,17 +41,9 @@ $createCmd = "CREATE TABLE [dbo].[leaderboards]
     )";
 $create = sqlsrv_query($conn, $createCmd);
 }
-//inserting values
-if($tableOperation == "makePlayer")
-{
-    //it should auto increment and have a null value for team.
-    $makeCmd = "INSERT into [dbo].[leaderboards] values ('$name',0,0,0,0)";
-    $makePlayer = sqlsrv_query($conn, $makeCmd);
-}
-//removing a player from the database
+
 if($tableOperation == "showData")
 {
-    // My code
     $tsql = "SELECT * FROM leaderboards";
     $getProducts = sqlsrv_query($conn, $tsql);
     if ($getProducts == FALSE)
@@ -64,6 +56,16 @@ if($tableOperation == "showData")
         echo $row['Name']."|".$row['Kills']."|".$row['Deaths']."|".$row['Scores']."|".$row['Team'].";";
     }
 }
+
+//inserting values
+if($tableOperation == "makePlayer")
+{
+    //it should auto increment and have a null value for team.
+    $makeCmd = "INSERT into [dbo].[leaderboards] values ('$name',0,0,0,0)";
+    $makePlayer = sqlsrv_query($conn, $makeCmd);
+}
+
+//removing a player from the database
 if($tableOperation == "deletePlayer")
 {
     echo "about to check delete player";
