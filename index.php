@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Jose Salinas, Earl
+ * User: Koobi, Jose Salinas, Earl
  * Date: 2/6/17
  * Time: 6:09 PM
  */
@@ -41,21 +41,6 @@ $createCmd = "CREATE TABLE [dbo].[leaderboards]
     )";
 $create = sqlsrv_query($conn, $createCmd);
 }
-// Koobi's code
-/*
-$stmt = "select * from [dbo].[leaderboards]";
-$result = sqlsrv_query($conn, $stmt);
-while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-{
-    //print_r($row);
-    //echo"<br />";
-    //print "<tr>\n";
-    echo "<br>";
-    echo $row['Name'].", ".$row['Kills'].", ".$row['Deaths'].", ".$row['Scores'].", ".$row['Team']."<br />";
-    echo "<br>";
-}
-*/
-
 //inserting values
 if($tableOperation == "makePlayer")
 {
