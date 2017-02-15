@@ -44,7 +44,7 @@ $createCmd = "CREATE TABLE [dbo].[leaderboards]
 $create = sqlsrv_query($conn, $createCmd);
 //echo "you have finished calling table operation (create)";
 //}
-// Koobi's code'
+// Koobi's code
 /*
 $stmt = "select * from [dbo].[leaderboards]";
 $result = sqlsrv_query($conn, $stmt);
