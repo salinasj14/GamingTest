@@ -71,7 +71,6 @@ while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
 //inserting values
 if($tableOperation == "makePlayer")
 {
-    echo "you have called table operation (makePlayer)";
     //it should auto increment and have a null value for team.
     $makeCmd = "INSERT into [dbo].[leaderboards] values ('$name',0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
