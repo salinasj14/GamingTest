@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Koobi Eyota, Jose Salinas, Earl Blizzard
+ * User: Koobi Eyota, Jose F Salinas, Earl Blizzard
  * Date: 2/6/17
  * Time: 6:09 PM
  */
