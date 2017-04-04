@@ -59,7 +59,7 @@ if($tableOperation == "showData")
 
     while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
     {
-        echo $row[Name]."|".$row['Kills']."|".$row['Deaths']."|".$row['Scores']."|".$row['Team'].";";
+        echo $row['Name']."|".$row['Kills']."|".$row['Deaths']."|".$row['Scores']."|".$row['Team'].";";
     }
 }
 
