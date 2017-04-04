@@ -32,7 +32,7 @@ if($conn != true)
 // call operations on site with ?operation=
 if($tableOperation == 'create')
 {
-$createCmd = "CREATE TABLE [dbo].[$tableName]
+$createCmd = "CREATE TABLE [dbo].['$tableName']
     (
 	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
       [Name] VARCHAR(50) NOT NULL, 
@@ -47,7 +47,7 @@ $create = sqlsrv_query($conn, $createCmd);
 
 if($tableOperation == "showData")
 {
-    $tsql = "SELECT * FROM $tableName";
+    $tsql = "SELECT * FROM '$tableName'";
     $getProducts = sqlsrv_query($conn, $tsql);
     if ($getProducts == FALSE)
     {
@@ -64,7 +64,7 @@ if($tableOperation == "showData")
 if($tableOperation == "makePlayer")
 {
     //it should auto increment and have a null value for team.
-    $makeCmd = "INSERT into [dbo].[$tableName] values ('$name',0,0,0,0)";
+    $makeCmd = "INSERT into [dbo].['$tableName'] values ('$name',0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
 }
 
@@ -127,7 +127,7 @@ if($tableOperation == "setTeam")
 if($tableOperation == "deleteTable")
 {
     echo "you have called table operation (delete) to erase '$tableName'";
-    $deleteCmd = "Drop Table [dbo].[$tableName]";
+    $deleteCmd = "Drop Table [dbo].['$tableName']";
     $delete = sqlsrv_query($conn,$deleteCmd);
     echo "you have finished calling table operation (delete)";
 
