@@ -77,7 +77,7 @@ if($tableOperation == "deletePlayer")
     echo "about to check delete player";
     echo "<br>";
     echo "you have called table operation (deletePlayer)";
-    $deletePlayerCmd = "DELETE from [dbo].[$tableName] where name = '$name'";
+    $deletePlayerCmd = "DELETE from [dbo].['$tableName'] where name = '$name'";
     $deletePlayer = sqlsrv_query($conn, $deletePlayerCmd);
     echo "you have finished calling table operation (deletePlayer) \n";
 }
@@ -85,7 +85,7 @@ if($tableOperation == "deletePlayer")
 if($tableOperation == "updateKill")
 {
     echo "you have called table operation (updateKill)";
-    $killCmd = "UPDATE [dbo].[$tableName] set Kills = Kills+1 where Name = '$name'";
+    $killCmd = "UPDATE [dbo].['$tableName'] set Kills = Kills+1 where Name = '$name'";
     $updateKill = sqlsrv_query($conn,$killCmd);
     echo "you have finished calling  table operation (updatingKill)";
 }
@@ -93,7 +93,7 @@ if($tableOperation == "updateKill")
 if($tableOperation == "updateDeath")
 {
     echo "you have called table operation (updateDeath)";
-    $deathCmd = "UPDATE [dbo].[$tableName] set Deaths = Deaths+1 where Name = '$name'";
+    $deathCmd = "UPDATE [dbo].['$tableName'] set Deaths = Deaths+1 where Name = '$name'";
     $updateDeath = sqlsrv_query($conn,$deathCmd);
     echo "you have finished calling  table operation (updatingDeath)";
 }
@@ -101,7 +101,7 @@ if($tableOperation == "updateDeath")
 if($tableOperation == "incScores")
 {
     echo "you have called table operation (incScores)";
-    $incCmd = "UPDATE [dbo].[$tableName] set Scores = Scores+1 where Name = '$name'";
+    $incCmd = "UPDATE [dbo].['$tableName'] set Scores = Scores+1 where Name = '$name'";
     $incScores = sqlsrv_query($conn,$incCmd);
     echo "you have finished calling  table operation (incScores)";
 }
@@ -113,13 +113,13 @@ if($tableOperation == "setTeam")
     if($team == 1)
     {
         echo "you entered in setTeam 2!!!";
-        $set = "UPDATE [dbo].[$tableName] set Team = 1 where Name = '$name'";
+        $set = "UPDATE [dbo].['$tableName'] set Team = 1 where Name = '$name'";
         echo "<br>";
     }
     else if($team == 2)
     {
         echo "you entered in setTeam 2!!!";
-        $set = "UPDATE [dbo].[$tableName] set Team = 2 where Name = '$name'";
+        $set = "UPDATE [dbo].['$tableName'] set Team = 2 where Name = '$name'";
         echo "<br>";
     }
     $setTeam = sqlsrv_query($conn,$set);
@@ -132,7 +132,15 @@ if($tableOperation == "deleteTable")
     echo "you have called table operation (delete) to erase '$tableName'";
     $deleteCmd = "Drop Table [dbo].['$tableName']";
     $delete = sqlsrv_query($conn,$deleteCmd);
-    echo "you have finished calling table operation (delete)";
+    if($delete===false)
+    {
+        echo "There was no table to drop";
+    }
+    else
+    {
+        echo "you have finished calling table operation (delete)";
+    }
+
 
 
 }
