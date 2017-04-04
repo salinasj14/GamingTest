@@ -49,7 +49,7 @@ $create = sqlsrv_query($conn, $createCmd);
 
 if($tableOperation == "showData")
 {
-    echo "the name is '$tableName'";
+   // echo "the name is '$tableName'";
     $tsql = "SELECT * FROM '$tableName'";
     $getProducts = sqlsrv_query($conn, $tsql);
     if ($getProducts == FALSE)
