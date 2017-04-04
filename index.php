@@ -124,7 +124,7 @@ if($tableOperation == "setTeam")
     echo "<br>";
 }
 //delete table
-if($tableOperation == "deleteTable")
+if($tableOperation == "deleteTable"&&$tableName=='TBName')
 {
     echo "you have called table operation (delete) to erase '$tableName'";
     $deleteCmd = "Drop Table [dbo].['$tableName']";
