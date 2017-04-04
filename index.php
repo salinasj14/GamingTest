@@ -126,7 +126,7 @@ if($tableOperation == "setTeam")
 //delete table
 if($tableOperation == "deleteTable")
 {
-    echo "you have called table operation (delete)";
+    echo "you have called table operation (delete) to erase '$tableName'";
     $deleteCmd = "Drop Table [dbo].[$tableName]";
     $delete = sqlsrv_query($conn,$deleteCmd);
     echo "you have finished calling table operation (delete)";
