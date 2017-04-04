@@ -30,8 +30,9 @@ if($conn != true)
 //}
 //creating the table
 // call operations on site with ?operation=
-if($tableOperation == 'create'&&$tableName=='TBName')
+if($tableOperation == 'create')
 {
+    echo "in create";
 $createCmd = "CREATE TABLE [dbo].['$tableName']
     (
 	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
@@ -39,8 +40,8 @@ $createCmd = "CREATE TABLE [dbo].['$tableName']
       [Kills] INT NOT NULL, 
       [Deaths] INT NOT NULL, 
       [Scores] INT NOT NULL, 
-      [Team] INT,
-      [Round] INT
+      [Team] INT NOT NULL,
+      [Round] INT NOT NULL
     )";
 $create = sqlsrv_query($conn, $createCmd);
 }
@@ -124,7 +125,7 @@ if($tableOperation == "setTeam")
     echo "<br>";
 }
 //delete table
-if($tableOperation == "deleteTable"&&$tableName=='TBName')
+if($tableOperation == "deleteTable")
 {
     echo "you have called table operation (delete) to erase '$tableName'";
     $deleteCmd = "Drop Table [dbo].['$tableName']";
