@@ -16,6 +16,7 @@ $kills = $_GET['kills'];
 $deaths = $_GET['deaths'];
 $score = $_GET['score'];
 $team = $_GET['team'];
+$tableName = $_GET['TBName'];
 $tableOperation = $_GET['operation'];
 //testing to see if DB is connected
 if($conn != true)
@@ -31,14 +32,15 @@ if($conn != true)
 // call operations on site with ?operation=
 if($tableOperation == 'create')
 {
-$createCmd = "CREATE TABLE [dbo].[leaderboards]
+$createCmd = "CREATE TABLE [dbo].[TBName]
     (
 	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
       [Name] VARCHAR(50) NOT NULL, 
       [Kills] INT NOT NULL, 
       [Deaths] INT NOT NULL, 
       [Scores] INT NOT NULL, 
-      [Team] INT
+      [Team] INT,
+      [Round] INT
     )";
 $create = sqlsrv_query($conn, $createCmd);
 }
