@@ -140,9 +140,6 @@ if($tableOperation == "deleteTable")
     {
         echo "you have finished calling table operation (delete)";
     }
-
-
-
 }
 
 if($tableOperation == "highestScore")
