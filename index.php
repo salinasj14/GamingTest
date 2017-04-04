@@ -30,7 +30,7 @@ if($conn != true)
 //}
 //creating the table
 // call operations on site with ?operation=
-if($tableOperation == 'create')
+if($tableOperation == 'create'&&$tableName=='TBName')
 {
 $createCmd = "CREATE TABLE [dbo].['$tableName']
     (
