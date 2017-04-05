@@ -34,7 +34,7 @@ if($tableOperation == 'create')
 {
     echo "in create";
     echo "the name is $tableName";
-$createCmd = "CREATE TABLE [dbo].[$tableName]
+$createCmd = "CREATE TABLE $tableName
     (
 	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
       [Name] VARCHAR(50) NOT NULL, 
