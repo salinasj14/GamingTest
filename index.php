@@ -67,7 +67,7 @@ if($tableOperation == "showData")
 if($tableOperation == "makePlayer")
 {
     //it should auto increment and have a null value for team.
-    $makeCmd = "INSERT into [dbo].[$tableName] values ('$name',0,0,0,0,0)";
+    $makeCmd = "INSERT into $tableName values ($name,0,0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
 }
 
