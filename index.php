@@ -37,7 +37,7 @@ if($tableOperation == 'create')
     echo "the name is $tableName";
 $createCmd = "CREATE TABLE $tableName
     (
-	  [Id] INT NOT NULL PRIMARY KEY, 
+	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
       [Name] VARCHAR(50) NOT NULL, 
       [Kills] INT NOT NULL, 
       [Deaths] INT NOT NULL, 
