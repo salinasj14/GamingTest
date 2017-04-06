@@ -37,7 +37,7 @@ if($tableOperation == 'create')
     echo "the name is $tableName";
 $createCmd = "CREATE TABLE $tableName
     (
-	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+	  [Id] INT NOT NULL PRIMARY KEY, 
       [Name] VARCHAR(50) NOT NULL, 
       [Kills] INT NOT NULL, 
       [Deaths] INT NOT NULL, 
@@ -67,6 +67,7 @@ if($tableOperation == "showData")
 //inserting values
 if($tableOperation == "makePlayer")
 {
+    //SET IDENTITY_INSERT $tableName ON;
     //it should auto increment and have a null value for team.
     $makeCmd = "INSERT into $tableName values ('$id','$name',0,0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
