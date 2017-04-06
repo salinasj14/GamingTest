@@ -50,7 +50,7 @@ $create = sqlsrv_query($conn, $createCmd);
 if($tableOperation == "showData")
 {
    // echo "the name is '$tableName'";
-    $tsql = "SELECT * FROM $tableName";
+    $tsql = "SELECT * FROM [dbo].[$tableName]";
     $getProducts = sqlsrv_query($conn, $tsql);
     if ($getProducts == FALSE)
     {
@@ -68,7 +68,7 @@ if($tableOperation == "makePlayer")
 {
     echo "it works";
     //it should auto increment and have a null value for team.
-    $makeCmd = "INSERT into $tableName values ('$name',0,0,0,0,0)";
+    $makeCmd = "INSERT into [dbo].[$tableName] values ('$name',0,0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
 }
 
