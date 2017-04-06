@@ -69,7 +69,7 @@ if($tableOperation == "makePlayer")
 {
     //SET IDENTITY_INSERT $tableName ON;
     //it should auto increment and have a null value for team.
-    $makeCmd = "INSERT into $tableName(['Id'],['Kills'],['Deaths'],['Scores'],['Team'],['Round']) values ('$id','$name',0,0,0,0,0)";
+    $makeCmd = "INSERT into $tableName([Id],[Kills],[Deaths],[Scores],[Team],[Round]) values ('$id','$name',0,0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
 }
 
