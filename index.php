@@ -113,8 +113,8 @@ if($tableOperation == "setScore")
 {
     echo "you have called table operation (setScore)";
     echo "<br>";
-    $setScoreCmd = "UPDATE [dbo].[$tableName] set Scores = $score where Name = '$name'";
-    $setScore = sqlsrv_query($conn,$setScoreCmd);
+    //$setScoreCmd = "UPDATE [dbo].[$tableName] set Scores = $score where Name = '$name'";
+    //$setScore = sqlsrv_query($conn,$setScoreCmd);
     echo "you have finished calling table operation (setScore)";
 }
 
