@@ -11,7 +11,6 @@ $connectionTimeoutSeconds = 30;
 $connectionOptions = array("Database"=>"Game", "Uid"=>"salinasj14", "PWD"=>"Eastcarolina14", "LoginTimeout" => $connectionTimeoutSeconds);
 $conn = sqlsrv_connect($server,$connectionOptions);
 //Strings to access from client side
-$id = $_GET['id'];
 $name = $_GET['name'];
 $kills = $_GET['kills'];
 $deaths = $_GET['deaths'];
@@ -37,7 +36,7 @@ if($tableOperation == 'create')
     echo "the name is $tableName";
 $createCmd = "CREATE TABLE $tableName
     (
-	  [Id] INT NOT NULL PRIMARY KEY, 
+	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
       [Name] VARCHAR(50) NOT NULL, 
       [Kills] INT NOT NULL, 
       [Deaths] INT NOT NULL, 
@@ -60,16 +59,15 @@ if($tableOperation == "showData")
 
     while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
     {
-        echo $row['Id']."|".$row['Name']."|".$row['Kills']."|".$row['Deaths']."|".$row['Scores']."|".$row['Team']."|".$row['Round'].";";
+        echo $row['Name']."|".$row['Kills']."|".$row['Deaths']."|".$row['Scores']."|".$row['Team']."|".$row['Round'].";";
     }
 }
 
 //inserting values
 if($tableOperation == "makePlayer")
 {
-    //SET IDENTITY_INSERT $tableName ON;
     //it should auto increment and have a null value for team.
-    $makeCmd = "INSERT into $tableName([Id],[Kills],[Deaths],[Scores],[Team],[Round]) values ('$id','$name',0,0,0,0,0)";
+    $makeCmd = "INSERT into $tableName values ('$name',0,0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
 }
 
