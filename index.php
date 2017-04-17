@@ -46,6 +46,7 @@ if($tableOperation == 'create')
     )";
     $create = sqlsrv_query($conn, $createCmd);
 }
+
 if($tableOperation == "showData")
 {
     // echo "the name is '$tableName'";
