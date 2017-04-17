@@ -50,7 +50,7 @@ $create = sqlsrv_query($conn, $createCmd);
 if($tableOperation == "showData")
 {
    // echo "the name is '$tableName'";
-    $tsql = "SELECT * FROM $tableName ORDER BY Scores";//earl
+    $tsql = "SELECT * FROM $tableName ORDER BY Scores DESC";//earl
     $getProducts = sqlsrv_query($conn, $tsql);
     if ($getProducts == FALSE)
     {
