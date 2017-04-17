@@ -34,7 +34,7 @@ if($tableOperation == 'create')
 {
     echo "in create";
     echo "the name is $tableName";
-$createCmd = "CREATE TABLE $tableName
+    $createCmd = "CREATE TABLE $tableName
     (
 	  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
       [Name] VARCHAR(50) NOT NULL, 
@@ -44,25 +44,22 @@ $createCmd = "CREATE TABLE $tableName
       [Team] INT NOT NULL,
       [Round] INT NOT NULL
     )";
-$create = sqlsrv_query($conn, $createCmd);
+    $create = sqlsrv_query($conn, $createCmd);
 }
-
 if($tableOperation == "showData")
 {
-   // echo "the name is '$tableName'";
-    $tsql = "SELECT * FROM $tableName ORDER BY Scores";//earl
+    // echo "the name is '$tableName'";
+    $tsql = "SELECT * FROM $tableName ORDER BY Scores DESC";//earl
     $getProducts = sqlsrv_query($conn, $tsql);
     if ($getProducts == FALSE)
     {
         die(FormatErrors(sqlsrv_errors()));
     }
-
     while( $row = sqlsrv_fetch_array( $getProducts, SQLSRV_FETCH_ASSOC ))
     {
         echo $row['Name']."|".$row['Kills']."|".$row['Deaths']."|".$row['Scores']."|".$row['Team']."|".$row['Round'].";";
     }
 }
-
 //inserting values
 if($tableOperation == "makePlayer")
 {
@@ -71,7 +68,6 @@ if($tableOperation == "makePlayer")
     $makeCmd = "INSERT into $tableName values ('$name',0,0,0,0,0)";
     $makePlayer = sqlsrv_query($conn, $makeCmd);
 }
-
 //removing a player from the database
 if($tableOperation == "deletePlayer")
 {
@@ -98,7 +94,6 @@ if($tableOperation == "updateDeath")
     $updateDeath = sqlsrv_query($conn,$deathCmd);
     echo "you have finished calling  table operation (updatingDeath)";
 }
-
 //updating the score
 if($tableOperation == "updateScore")
 {
@@ -116,6 +111,14 @@ if($tableOperation == "setScore")
     $setScoreCmd = "UPDATE $tableName set Scores = $score where Name = '$name'";
     $setScore = sqlsrv_query($conn,$setScoreCmd);
     echo "you have finished calling table operation (setScore)";
+}
+
+if($tableOperation == "incRounds")
+{
+    echo "you have called table operation (incRounds)";
+    $incRoundCmd = "UPDATE $tableName set Rounds = Rounds+1 where Score = (Select max(Score) From $tableName)";
+    $incRounds = sqlsrv_query($conn,$incRoundCmd);
+    echo "you have finished calling  table operation (incRound)";
 }
 
 //incrementing the score
@@ -147,6 +150,34 @@ if($tableOperation == "setTeam")
     echo "you have finished calling  table operation (setTeam)";
     echo "<br>";
 }
+
+//refresh after rounds
+if($tableOperation == "roundRefresh")
+{
+    echo "you have called table operation (roundRefresh)";
+    $roundRefreshCmd = "UPDATE $tableName set Kills = 0 , Deaths = 0, Scores = 0 where Name = '$name'";
+    $roundRefresh = sqlsrv_query($conn,$roundRefreshCmd);
+    echo "you have finished calling  table operation (roundRefresh)";
+}
+//refresh after games
+if($tableOperation == "gameRefresh")
+{
+    echo "you have called table operation (gameRefresh)";
+    $gameRefreshCmd = "UPDATE $tableName set Kills = 0 , Deaths = 0, Scores = 0, Rounds = 0 where Name = '$name'";
+    $gameRefresh = sqlsrv_query($conn,$gameRefreshCmd);
+    echo "you have finished calling  table operation (gameRefresh)";
+}
+//largest round//Earl
+if($tableOperation == "largestRound")
+{
+    $maxRound = "SELECT Name, Rounds FROM $tableName WHERE Rounds = (Select max(Rounds) From $tableName)";
+    $getRound = sqlsrv_query($conn, $maxRound);
+    while( $row = sqlsrv_fetch_array( $getRound, SQLSRV_FETCH_ASSOC ))
+    {
+        echo $row['Name']."|".$row['Rounds']."|".";";
+    }
+}
+
 //delete table
 if($tableOperation == "deleteTable")
 {
@@ -162,7 +193,6 @@ if($tableOperation == "deleteTable")
         echo "you have finished calling table operation (delete)";
     }
 }
-
 if($tableOperation == "highestScore")
 {
     $maxScore = "SELECT Name, Scores FROM $tableName WHERE Scores = (Select max(Scores) From $tableName)";
