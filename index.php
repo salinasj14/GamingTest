@@ -117,7 +117,7 @@ if($tableOperation == "setScore")
 if($tableOperation == "incRounds")
 {
     echo "you have called table operation (incRounds)";
-    $incRoundCmd = "UPDATE $tableName set Rounds = Rounds+1 where Score = (Select max(Score) From $tableName)";
+    $incRoundCmd = "UPDATE $tableName set Round = Round+1 where Score = (Select max(Score) From $tableName)";
     $incRounds = sqlsrv_query($conn,$incRoundCmd);
     echo "you have finished calling  table operation (incRound)";
 }
@@ -152,7 +152,7 @@ if($tableOperation == "setTeam")
     echo "<br>";
 }
 
-//refresh after rounds
+//refresh after round
 if($tableOperation == "roundRefresh")
 {
     echo "you have called table operation (roundRefresh)";
@@ -164,20 +164,20 @@ if($tableOperation == "roundRefresh")
 if($tableOperation == "gameRefresh")
 {
     echo "you have called table operation (gameRefresh)";
-    $gameRefreshCmd = "UPDATE $tableName set Kills = 0 , Deaths = 0, Scores = 0, Rounds = 0 where Name = '$name'";
+    $gameRefreshCmd = "UPDATE $tableName set Kills = 0 , Deaths = 0, Scores = 0, Round = 0 where Name = '$name'";
     $gameRefresh = sqlsrv_query($conn,$gameRefreshCmd);
     echo "you have finished calling  table operation (gameRefresh)";
 }
 //largest round//Earl
-if($tableOperation == "largestRound")
+if($tableOperation == "largestRounds")
 {
-    echo "you have called largest round ";
-    echo "<br>";
+    //echo "you have called largest round ";
+    //echo "<br>";
     $maxRound = "SELECT Name, Round FROM $tableName WHERE Round = (Select max(Round) From $tableName)";
     $getRound = sqlsrv_query($conn, $maxRound);
     while( $row = sqlsrv_fetch_array( $getRound, SQLSRV_FETCH_ASSOC ))
     {
-        echo $row['Name']."|".$row['Rounds']."|".";";
+        echo $row['Name']."|".$row['Round']."|".";";
     }
 }
 
