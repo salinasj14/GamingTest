@@ -171,7 +171,8 @@ if($tableOperation == "gameRefresh")
 //largest round//Earl
 if($tableOperation == "largestRound")
 {
-    echo "you have called largest round";
+    echo "you have called largest round ";
+    echo "<br>";
     $maxRound = "SELECT Name, Round FROM $tableName WHERE Round = (Select max(Round) From $tableName)";
     $getRound = sqlsrv_query($conn, $maxRound);
     while( $row = sqlsrv_fetch_array( $getRound, SQLSRV_FETCH_ASSOC ))
