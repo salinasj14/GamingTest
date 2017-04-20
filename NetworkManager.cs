@@ -1,12 +1,14 @@
-//Jose Salinas
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour {
 	const string VERSION = "v0.1";
-	public string roomName = "";
+	public static string roomName = "";
+	public string myName = "";
+	public static int personalId;
 	private int maxPlayer = 1;
+    public static int playerMax;
 	int maxChatMessages = 5;
 	List<string> chatMessages;
 	private Room[] game;
@@ -18,12 +20,15 @@ public class NetworkManager : MonoBehaviour {
 	// Use this for initialization
 	void Start()
 	{
+		
 		//PhotonNetwork.ConnectUsingSettings(VERSION);
-		PhotonNetwork.player.NickName = PlayerPrefs.GetString("Username", "   ");
+		//PhotonNetwork.player.NickName = PlayerPrefs.GetString("Username");
 		chatMessages = new List<string>();
 	}
 	void OnDestroy(){
-		PlayerPrefs.SetString("Username", "   ");
+
+		//PlayerPrefs.SetString("Username", "");
+
 	}
 
 	public void AddChatMessage(string m){
@@ -42,19 +47,21 @@ public class NetworkManager : MonoBehaviour {
 		GUI.color = Color.grey;
 		float w = 0.3f; // proportional width (0..1)
 		if(connecting == false ) {
-			GUILayout.BeginArea( new Rect(0 , 0, Screen.width, Screen.height) );
+			GUILayout.BeginArea( new Rect(-80 , -40, Screen.width, Screen.height) );
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginVertical();
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginHorizontal();
-			GUI.color = new Color(128f,0f,128f,.8f);
-			GUILayout.Label("Username: ");
-			GUI.color = new Color(255f,255f,0f,.8f);
-			PhotonNetwork.player.NickName = GUILayout.TextField(PhotonNetwork.player.NickName);
+			GUI.color = new Color(0f,0f,0f,.8f);
+			GUILayout.Label("Username:   ");
+			GUI.color = new Color(255f,255f,255f,.8f);
+			PhotonNetwork.player.NickName = GUI.TextField(new Rect(Screen.width/2+32, Screen.height/2-10,150, 23), myName, 25);
+			myName = PhotonNetwork.player.NickName;
+			myName = myName.Replace(" ","_");
 			GUILayout.EndHorizontal();
 
-			if( GUILayout.Button("Lets Play!") ) {
+			if ( GUI.Button(new Rect(Screen.width/2+20,Screen.height/2+30,120,40),"Let's Play!") || Input.GetKeyDown(KeyCode.Return)) {
 				connecting = true;
 				Connect ();
 
@@ -102,7 +109,9 @@ public class NetworkManager : MonoBehaviour {
 
 				if (maxPlayer > 4) maxPlayer = 4;
 				if (maxPlayer == 0) maxPlayer = 1;
-			}
+                playerMax = maxPlayer;
+
+            }
 			else
 			{
 				maxPlayer = 1;
@@ -110,15 +119,19 @@ public class NetworkManager : MonoBehaviour {
 			
 			if ( GUILayout.Button ("Create Room ") ) {
 				if (roomName != "" && maxPlayer > 0) {
+					StartCoroutine(tableOperations.create(roomName));
+				
+					Debug.Log(myName);
+					Debug.Log(roomName);
 					roomOptions.MaxPlayers = (byte)maxPlayer;
 					PhotonNetwork.CreateRoom(roomName, roomOptions,null);
 				}
 			}
 
 			GUILayout.Space (20);
-			GUI.color = Color.yellow;
+			GUI.color = Color.white;
 			GUILayout.Box ("Rooms Open");
-			GUI.color = Color.blue;
+			GUI.color = Color.cyan;
 			GUILayout.Space (20);
 
 			scrollPosition = GUILayout.BeginScrollView(scrollPosition, false,true,GUILayout.Width(400), GUILayout.Height(300));
@@ -129,6 +142,8 @@ public class NetworkManager : MonoBehaviour {
 				GUI.color = Color.green;
 				GUILayout.Box (game.Name + " " + game.PlayerCount + "/" + game.MaxPlayers);
 				if ( GUILayout.Button ("Join Room") ) {
+					roomName = game.Name;
+					//StartCoroutine(tableOperations.makePlayer(myName,roomName));
 					PhotonNetwork.JoinRoom(game.Name);
 				}
 			}
@@ -136,6 +151,7 @@ public class NetworkManager : MonoBehaviour {
 			GUILayout.EndArea ();
 		}
 	}
+
 
 	void Connect(){
 		PhotonNetwork.ConnectUsingSettings(VERSION);
@@ -148,9 +164,12 @@ public class NetworkManager : MonoBehaviour {
 	}
 	
 	void OnJoinedRoom(){
-		PhotonNetwork.LoadLevel("pres");
+		StartCoroutine(tableOperations.makePlayer(myName,roomName));
+		personalId = PhotonNetwork.player.ID;
+		PhotonNetwork.LoadLevel("round_transition");
+
 	}
-	
+
 	void OnPhotonRandomJoinFailed(){
 		Debug.Log("OnPhotonRandomJoinFailed");
 		PhotonNetwork.CreateRoom( null );
